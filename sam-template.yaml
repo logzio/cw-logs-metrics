@@ -106,6 +106,31 @@ Parameters:
     Type: Number
     Description: 'The size of the buffer, in MBs, that Kinesis Data Firehose uses for incoming data before delivering it to the destination'
     Default: 5
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Integration Configuration"
+        Parameters: 
+          - logzioListener
+          - logzioLogsToken
+          - logzioMetricsToken
+          - awsNamespaces
+          - logzioMetricsDestination
+          - logzioLogsType
+          - logzioLogsFormat
+          - logzioLogsCompress
+          - logzioLogsEnrich
+          - shipperLambdaTimeout
+          - shipperLambdaMemory
+          - services
+          - customLogGroups
+          - triggerLambdaTimeout 
+          - triggerLambdaMemory
+          - triggerLambdaLogLevel
+          - httpEndpointDestinationIntervalInSeconds
+          - httpEndpointDestinationSizeInMBs
 Resources:
   awsLogs:
     Type: AWS::CloudFormation::Stack
