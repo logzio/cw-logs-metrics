@@ -2,6 +2,8 @@ name: Upload new release
 on:
   release:
     types: [published]
+
+jobs:
   upload_to_buckets:
     name: Upload to S3 buckets
     runs-on: ubuntu-latest
