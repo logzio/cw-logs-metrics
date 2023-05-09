@@ -65,6 +65,12 @@ AWS limits every log group to have up to 2 subscription filters. If your chosen 
 
 If you've used the `services` field, you'll have to **wait 6 minutes** before creating new log groups for your chosen services. This is due to cold start and custom resource invocation, that can cause the cause Lambda to behave unexpectedly.
 
-### 2. Send your logs and metrics
+### Send your logs and metrics
 
 Give your Cloudformation a few minutes to be created, and that's it!
+
+
+## Changelog:
+
+- **1.0.0**:
+  - Initial Release
