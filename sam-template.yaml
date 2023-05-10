@@ -4,7 +4,7 @@ Description: >-
 Parameters:
   logzioListener:
     Type: String
-    Description: 'The Logz.io listener URL for your region. You can find explanations here: https://docs.logz.io/user-guide/accounts/account-region.html, releated to logs'
+    Description: 'For metrics and logs. The Logz.io listener URL for your region. You can find explanations here: https://docs.logz.io/user-guide/accounts/account-region.html.'
     Default: 'https://listener.logz.io'
     AllowedValues:
       - 'https://listener.logz.io'
@@ -16,19 +16,19 @@ Parameters:
       - 'https://listener-wa.logz.io'
   logzioLogsToken:
     Type: String
-    Description: 'Your Logz.io log shipping token'
+    Description: 'For logs. Your Logz.io log shipping token.'
     MinLength: 1
   logzioMetricsToken:
     Type: String
-    Description: 'Your Logz.io log shipping token'
+    Description: 'For metrics. Your Logz.io log shipping token.'
     MinLength: 1
   awsNamespaces:
     Type: String
-    Description: 'The AWS namespaces you want to collect metrics from'
+    Description: 'For metrics. The AWS namespaces you want to collect metrics from.'
     MinLength: 1
   logzioMetricsDestination:
     Type: String
-    Description: 'Your Logz.io destination'
+    Description: 'For metrics. Your Logz.io destination.'
     Default: 'https://listener-aws-metrics-stream-us.logz.io/'
     AllowedValues:
       - 'https://listener-aws-metrics-stream-us.logz.io/'
@@ -39,57 +39,58 @@ Parameters:
   logzioLogsType:
     Type: String
     Description: >- 
+      For logs.
       The log type you'll use with this Lambda.
       Please note that you should create a new Lambda for each log type you use.
-      This can be a built-in log type, or your custom log type
+      This can be a built-in log type, or your custom log type.
     Default: 'logzio_cloudwatch_lambda'
   logzioLogsFormat:
     Type: String
     Description: >-
+      For logs.
       json or text.
       If json, the lambda function will attempt to parse the message field as JSON
-      and populate the event data with the parsed fields."
+      and populate the event data with the parsed fields.
     Default: 'text'
     AllowedValues:
       - 'text'
       - 'json'
   logzioLogsCompress:
     Type: String
-    Description: If true, the Lambda will send compressed logs. If false, the Lambda will send uncompressed logs
+    Description: For logs. If true, the Lambda will send compressed logs. If false, the Lambda will send uncompressed logs.
     Default: 'true'
     AllowedValues:
       - 'true'
       - 'false'
   logzioLogsEnrich:
     Type: String
-    Description: Enriches the CloudWatch events with custom properties at ship time. The format is `key1=value1;key2=value2`. By default is empty.
+    Description: For logs. Enriches the CloudWatch events with custom properties at ship time. The format is `key1=value1;key2=value2`. By default is empty.
   shipperLambdaTimeout:
     Type: Number
     Description: >-
-      The number of seconds that Lambda allows a function to run before stopping it, for the shipper function.
-    Default: 60
+      For  logs. The number of seconds that Lambda allows a function to run before stopping it, for the shipper function.
   shipperLambdaMemory:
     Type: Number
-    Description: Shipper function's allocated CPU proportional to the memory configured, in MB.
+    Description: For logs. Shipper function's allocated CPU proportional to the memory configured, in MB.
     Default: 512
   services:
     Type: String
-    Description: A comma-seperated list of services you want to collect logs from
+    Description: For logs. A comma-seperated list of services you want to collect logs from.
   customLogGroups:
     Type: String
-    Description: A comma-seperated list of custom log groups you want to collect logs from
+    Description: For logs. A comma-seperated list of custom log groups you want to collect logs from.
   triggerLambdaTimeout:
     Type: Number
     Description: >-
-      The amount of seconds that Lambda allows a function to run before stopping it, for the trigger function.
+      For logs. The amount of seconds that Lambda allows a function to run before stopping it, for the trigger function.
     Default: 60
   triggerLambdaMemory:
     Type: Number
-    Description: Trigger function's allocated CPU proportional to the memory configured, in MB.
+    Description: For logs. Trigger function's allocated CPU proportional to the memory configured, in MB.
     Default: 512
   triggerLambdaLogLevel:
     Type: String
-    Description: 'Log level for the Lambda function. Can be one of: debug, info, warn, error, fatal, panic.'
+    Description: 'For logs. Log level for the Lambda function. Can be one of: debug, info, warn, error, fatal, panic.'
     Default: info
     AllowedValues:
       - debug
@@ -100,11 +101,11 @@ Parameters:
       - panic
   httpEndpointDestinationIntervalInSeconds:
     Type: Number
-    Description: 'The length of time, in seconds, that Kinesis Data Firehose buffers incoming data before delivering it to the destination'
+    Description: 'For metrics. The length of time, in seconds, that Kinesis Data Firehose buffers incoming data before delivering it to the destination.'
     Default: 60
   httpEndpointDestinationSizeInMBs:
     Type: Number
-    Description: 'The size of the buffer, in MBs, that Kinesis Data Firehose uses for incoming data before delivering it to the destination'
+    Description: 'For metrics. The size of the buffer, in MBs, that Kinesis Data Firehose uses for incoming data before delivering it to the destination.'
     Default: 5
 Metadata: 
   AWS::CloudFormation::Interface: 
@@ -117,6 +118,8 @@ Metadata:
           - logzioLogsToken
           - logzioMetricsToken
           - awsNamespaces
+          - services
+          - customLogGroups
           - logzioMetricsDestination
           - logzioLogsType
           - logzioLogsFormat
@@ -124,8 +127,6 @@ Metadata:
           - logzioLogsEnrich
           - shipperLambdaTimeout
           - shipperLambdaMemory
-          - services
-          - customLogGroups
           - triggerLambdaTimeout 
           - triggerLambdaMemory
           - triggerLambdaLogLevel
